@@ -1,0 +1,82 @@
+@import '_constants';
+@import 'colors';
+@import 'react_table';
+
+a {
+    text-decoration: none;
+}
+
+.application {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.page-header {
+    width: 100%;
+    background: rgb(255, 255, 255);
+    height: $page-header-height;
+    border-bottom: 1px solid #eeeeee;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.page-header-user {
+    margin-right: 10px;
+    .user-icon {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        background: gray;
+        color: $color-light-gray;
+    }
+}
+
+.side-nav {
+    width: $side-menu-width;
+    background: $color-dark-blue;
+    color: $color-light-gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    padding-top: 5px;
+}
+
+.side-nav-item {
+    border-radius: 4px;
+    width: 230px;
+    height: 43px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: $color-light-gray;
+}
+
+.side-nav-item-active {
+    background: $color-gray-transparent;
+    color: $color-cyan;
+    font-weight: bold;
+}
+
+.side-nav-item:hover {
+    background: $color-gray-transparent;
+}
+
+.main {
+    width: calc(100% - $side-menu-width);
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    height: calc(100vh - $page-header-height );
+    padding: 10px;
+    background: #F9FAFC;
+}
+
+.input-error-text {
+    color: #D32F2F !important;
+}
