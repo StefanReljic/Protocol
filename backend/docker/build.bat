@@ -1,0 +1,1 @@
+docker build --tag=m-box/customer-app .
