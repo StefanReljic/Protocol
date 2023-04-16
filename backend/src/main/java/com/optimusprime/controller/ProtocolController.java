@@ -56,9 +56,8 @@ public class ProtocolController {
 		return "Protocol updated successfully";
 	}
 
-	@PostMapping("/{protocolId}/archive")
-	public String archiveCompany(@PathVariable(value = "protocolId") final Long protocolId) {
-		System.out.println(protocolId);
+	@PutMapping("/{protocolId}/archive")
+	public String archiveProtocol(@PathVariable(value = "protocolId") final Long protocolId) {
 		this.protocolService.archiveProtocol(protocolId);
 		return "Protocol archived successfully";
 	}

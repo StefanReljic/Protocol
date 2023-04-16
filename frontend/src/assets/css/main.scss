@@ -10,6 +10,7 @@ a {
     display: flex;
     flex-direction: row;
     height: 100vh;
+    min-width: 540px;
 }
 
 .page-header {
@@ -65,18 +66,60 @@ a {
     background: $color-gray-transparent;
 }
 
+.small-screen-nav {
+    display: none;
+}
+
 .main {
+    height: 100vh;
     width: calc(100% - $side-menu-width);
     display: flex;
     flex-direction: column;
 }
 
 .main-content {
-    height: calc(100vh - $page-header-height );
+    height: 100vh;
     padding: 10px;
     background: #F9FAFC;
 }
 
 .input-error-text {
     color: #D32F2F !important;
+}
+
+@media screen and (max-width: 900px) {
+    
+    .application {
+        flex-direction: column;
+    }
+
+    .main {
+        width: 100%;
+        height: calc(100vh - 50px);
+    }
+
+    .main-content {
+        height: calc(100vh - 50px);
+    }
+
+    .side-nav {
+        width: 100%;
+        display: none;
+    }
+
+    .small-screen-nav {
+        height: 50px;
+        color: white;
+        background-color: $color-dark-blue;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        padding-left: 10px;
+    }
+
+    .menu-icon-color {
+        color:white;
+    }
+
 }

@@ -9,9 +9,11 @@ export default function Dialog({ open, title, children, onClose, onSave }) {
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
-        <Button onClick={onSave} variant='contained'>
-          Save
-        </Button>
+        {onSave && (
+          <Button onClick={onSave} variant='contained'>
+            Save
+          </Button>
+        )}
         <Button onClick={onClose} variant='outlined'>
           Cancel
         </Button>

@@ -45,7 +45,6 @@ public class ProtocolService {
 	}
 
 	public List<ProtocolDTO> getAllSubprotocols(Long protocolId) {
-		System.out.println(this.protocolRepository.getAllSubprotocols(protocolId));
 		return this.protocolRepository.getAllSubprotocols(protocolId);
 	}
 

@@ -86,6 +86,10 @@ export default function Users() {
     setUserDialogOpen(true);
   };
 
+  const deactivateUser = (row) => {
+    UserService.deactivateUser(row.original.username, { onSaveSuccess });
+  };
+
   const onSaveSuccess = () => {
     (async () => {
       setIsLoading(true);
@@ -120,6 +124,14 @@ export default function Users() {
           </>
         ),
         onClick: editRow,
+      },
+      {
+        component: (
+          <>
+            <Edit /> Deactivate user
+          </>
+        ),
+        onClick: deactivateUser,
       },
     ],
     []

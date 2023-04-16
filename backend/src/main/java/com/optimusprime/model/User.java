@@ -10,15 +10,18 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import com.optimusprime.dto.user.AddUserDTO;
 import com.optimusprime.model.queries.UserQueries;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Entity
 @Table(name = "USER")
 @NamedQuery(name = UserQueries.Fetch.AllAsUserDTO.NAME, query = UserQueries.Fetch.AllAsUserDTO.QUERY)
 @Getter
+@Builder
+@AllArgsConstructor
 public class User {
 
 	@Id
@@ -41,15 +44,6 @@ public class User {
 
 	public User() {
 		super();
-	}
-
-	public User(AddUserDTO userDTO) {
-		this.username = userDTO.getUsername();
-		this.password = userDTO.getPassword();
-		this.firstName = userDTO.getFirstName();
-		this.lastName = userDTO.getLastName();
-		this.email = userDTO.getEmail();
-		this.isActive = userDTO.getIsActive();
 	}
 
 	public void deactivateUser() {

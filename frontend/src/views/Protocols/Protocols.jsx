@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ProtocolService } from '../../services';
+import { DocumentService, ProtocolService } from '../../services';
 import Protocol from './Protocol';
 import Dialog from '../../components/Dialog/Dialog';
-import { NoteAdd, Archive, Edit, ArrowDropDown, ArrowRight, Menu as MenuIcon } from '@mui/icons-material';
+import { NoteAdd, Archive, Edit, ArrowDropDown, ArrowRight, Menu as MenuIcon, UploadFile } from '@mui/icons-material';
 import { IconButton, Typography } from '@mui/material';
 import Subprotocols from './Subprotocols';
 import Subprotocol from './Subprotocol';
@@ -10,12 +10,16 @@ import { ReactTable } from '../../components/ReactTable/ReactTable';
 import { toastSuccess } from '../../common/providers/NotificationProvider';
 import { useCallback } from 'react';
 import { formatDate } from '../../common/utils';
+import DownloadDocument from '../Administration/Documents/DownloadDocument';
 
 export default function Protocols() {
   const [protocols, setProtocols] = useState([]);
   const [protocolDialogOpen, setProtocolDialogOpen] = useState(false);
   const [subprotocolsDialogOpen, setSubprotocolsDialogOpen] = useState(false);
+  const [documentsDialogOpen, setDocumentsDialogOpen] = useState(false);
+  const [documents, setDocuments] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
+  const [fileUploadProtocolId, setFileUploadProtocolId] = useState(null);
 
   const [protocol, setProtocol] = useState({
     id: null,
@@ -102,7 +106,27 @@ export default function Protocols() {
     return ProtocolService.getAllSubprotocols(originalRow.id);
   }
 
+  const addDocument = (row) => {
+    setFileUploadProtocolId(row.original.id);
+    fileUploadRef.current.click();
+  };
+
+  const onDocumentChange = (e) => {
+    const files = e.target.files;
+    for (let i = 0; i < files.length; ++i) {
+      DocumentService.addDocument(fileUploadProtocolId, files[i]);
+    }
+  };
+
+  function getDocuments(row) {
+    (async () => {
+      setDocuments(await DocumentService.getAllDocumentsForProtocol(row.original.id));
+      setDocumentsDialogOpen(true);
+    })();
+  }
+
   const tableRef = useRef(null);
+  const fileUploadRef = useRef(null);
 
   const columns = useMemo(
     () => [
@@ -159,12 +183,31 @@ export default function Protocols() {
         ),
         onClick: addSubprotocol,
       },
+      {
+        component: (
+          <>
+            <UploadFile />
+            Add document
+          </>
+        ),
+        onClick: addDocument,
+      },
+      {
+        component: (
+          <>
+            <UploadFile />
+            View documents
+          </>
+        ),
+        onClick: getDocuments,
+      },
     ],
     []
   );
 
   return (
     <>
+      <input type='file' ref={fileUploadRef} style={{ visibility: 'hidden' }} multiple onChange={onDocumentChange} />
       <ReactTable
         columns={columns}
         data={protocols}
@@ -191,6 +234,11 @@ export default function Protocols() {
         <Subprotocol subprotocol={protocol} />
         <hr style={{ width: '100%' }} />
         <Subprotocols protocol={protocol} ref={subprotocolsRef} />
+      </Dialog>
+      <Dialog open={documentsDialogOpen} title={'Documents'} onClose={() => setDocumentsDialogOpen(false)}>
+        {documents.map((document) => (
+          <DownloadDocument {...document} />
+        ))}
       </Dialog>
     </>
   );

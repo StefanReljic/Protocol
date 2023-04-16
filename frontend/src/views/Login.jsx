@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 import Input from '../components/Inputs/Input';
+import axios from 'axios';
+import { useAuth } from '../common/hooks/useAuth';
+import { useContext } from 'react';
+import { AuthenticationContext } from '../common/providers/AuthenticationProvider';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function Login(props) {
+  const { login, isLoggedIn } = useContext(AuthenticationContext);
+  const navigate = useNavigate();
+
   const [credentials, setCredentials] = useState({
     username: '',
     password: '',
@@ -17,6 +25,19 @@ export default function Login(props) {
     credentialsCopy[event.target.id] = event.target.value;
     setCredentials(credentialsCopy);
   };
+
+  function authenticate() {
+    login(credentials);
+    navigate('/protocols');
+    /*axios.post('/api/login', credentials).then((response) => {
+      localStorage.setItem('token', response.data.token);
+      window.location.href = '/dashboard'; // Redirect to dashboard after successful login
+    });*/
+  }
+
+  if (isLoggedIn) {
+    return <Navigate to='/protocols' />;
+  }
 
   return (
     <Container className='w-25 p-5'>
@@ -50,7 +71,7 @@ export default function Login(props) {
       </Row>
       <Row>
         <Col>
-          <Button color='primary' variant='contained'>
+          <Button color='primary' variant='contained' onClick={authenticate}>
             Login
           </Button>
         </Col>

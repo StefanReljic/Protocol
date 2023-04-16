@@ -1,11 +1,11 @@
 package com.optimusprime.controller;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,8 +42,8 @@ public class UserController {
 		return "User updated successfully";
 	}
 
-	@PostMapping("/{username}/deactivate")
-	public String deactivateUser(@PathParam(value = "username") String username) {
+	@PutMapping("/{username}/deactivate")
+	public String deactivateUser(@PathVariable String username) {
 		this.userService.deactivateUser(username);
 		return "User deactivated successfully";
 	}

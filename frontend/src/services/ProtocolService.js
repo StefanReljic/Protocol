@@ -40,10 +40,29 @@ export class ProtocolService extends CrudService {
 
   async archiveProtocol(protocolId) {
     try {
-      const response = await axios.post(`${this.path}/${protocolId}/archive`);
+      const response = await axios.put(`${this.path}/${protocolId}/archive`);
       return response.data;
     } catch (error) {
       toastError('Error has occured while archiving protocol with id ' + protocolId);
+      return [];
+    }
+  }
+
+  async addDocument(protocolId, document) {
+    let formData = new FormData();
+    formData.append('protocolId', document);
+    formData.append('document', document);
+    formData.append('documentName', document.name);
+
+    try {
+      const response = await axios.post(`${this.path}/${protocolId}/documents`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      toastError('Error has occured while adding document ' + document.name + ' to protocol with id ' + protocolId);
       return [];
     }
   }
