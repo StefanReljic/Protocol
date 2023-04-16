@@ -3,13 +3,10 @@ import Protocols from '../views/Protocols/Protocols';
 import AdministrationRoutes from './AdministrationRoutes';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import SideNavbar from '../components/Navbars/SideNavbar';
-import { useAuth } from '../common/hooks/useAuth';
 import { AuthenticationContext } from '../common/providers/AuthenticationProvider';
 
 export default function ProtectedRoutes() {
   const { isLoggedIn } = useContext(AuthenticationContext);
-
-  console.log(isLoggedIn);
 
   return (
     <>
@@ -20,7 +17,7 @@ export default function ProtectedRoutes() {
             <div className='main-content'>
               <Routes>
                 <Route path='protocols' element={<Protocols />} />
-                <Route path='administration' element={<AdministrationRoutes />} />
+                <Route path='administration/*' element={<AdministrationRoutes />} />
               </Routes>
             </div>
           </div>
