@@ -6,9 +6,10 @@ export default function TableActionsMenu({ anchorEl, onClose, row, actions }) {
   return (
     <Menu id='simple-menu' anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={onClose}>
       {Boolean(actions) &&
-        actions.map(({ component, onClick }) => {
+        actions.map(({ component, onClick }, i) => {
           return (
             <MenuItem
+              key={'actions' + i}
               onClick={() => {
                 onClick(row);
                 onClose();

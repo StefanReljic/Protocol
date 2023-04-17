@@ -8,15 +8,15 @@ import AuthenticationProvider from './common/providers/AuthenticationProvider';
 
 export default function App() {
   return (
-    <AuthenticationProvider>
-      <NotificationProvider>
-        <BrowserRouter>
+    <BrowserRouter>
+      <AuthenticationProvider>
+        <NotificationProvider>
           <Routes>
             <Route path='login' element={<Login />} />
             <Route path='/*' element={<ProtectedRoutes />} />
           </Routes>
-        </BrowserRouter>
-      </NotificationProvider>
-    </AuthenticationProvider>
+        </NotificationProvider>
+      </AuthenticationProvider>
+    </BrowserRouter>
   );
 }

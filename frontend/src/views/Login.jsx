@@ -6,7 +6,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { Button, Grid } from '@mui/material';
 
 export default function Login(props) {
-  const { login, isLoggedIn } = useContext(AuthenticationContext);
+  const { login } = useContext(AuthenticationContext);
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
@@ -24,8 +24,8 @@ export default function Login(props) {
     setCredentials(credentialsCopy);
   };
 
-  if (isLoggedIn) {
-    navigate('/protocols');
+  if (localStorage.getItem('token') && window.location.pathname === '/login') {
+    return <Navigate to='/protocols' />;
   }
 
   return (

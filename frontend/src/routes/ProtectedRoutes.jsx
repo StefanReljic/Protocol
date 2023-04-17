@@ -18,6 +18,7 @@ export default function ProtectedRoutes() {
               <Routes>
                 <Route path='protocols' element={<Protocols />} />
                 <Route path='administration/*' element={<AdministrationRoutes />} />
+                <Route path='*' element={<Protocols />} />
               </Routes>
             </div>
           </div>

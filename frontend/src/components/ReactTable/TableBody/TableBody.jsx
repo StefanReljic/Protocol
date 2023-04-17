@@ -26,11 +26,12 @@ export const TableBody = forwardRef(({ tableInstance, actions, onRowExpand, colu
   return (
     <tbody {...getTableBodyProps()}>
       <TableActionsMenu anchorEl={anchorEl} onClose={closeActionsMenu} actions={actions} row={currentRow} />
-      {rows.map((row) => {
+      {rows.map((row, i) => {
         prepareRow(row);
         return (
           <>
             <TableRow
+              key={'row' + i}
               onRowExpand={onRowExpand}
               toggleActionsMenu={toggleActionsMenu}
               row={row}
