@@ -6,11 +6,9 @@ import SideNavbar from '../components/Navbars/SideNavbar';
 import { AuthenticationContext } from '../common/providers/AuthenticationProvider';
 
 export default function ProtectedRoutes() {
-  const { isLoggedIn } = useContext(AuthenticationContext);
-
   return (
     <>
-      {isLoggedIn ? (
+      {localStorage.getItem('token') ? (
         <div className='application'>
           <SideNavbar />
           <div className='main'>

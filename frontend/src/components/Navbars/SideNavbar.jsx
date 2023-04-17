@@ -1,9 +1,11 @@
 import { Menu as MenuIcon } from '@mui/icons-material';
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import { Button, IconButton, Menu, MenuItem } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { AuthenticationContext } from '../../common/providers/AuthenticationProvider';
 
-function SideNavItem({ to, label }) {
+function SideNavItem({ to, label, onClick }) {
   const [activeClass, setActiveClass] = useState('');
   const location = useLocation();
 
@@ -13,13 +15,16 @@ function SideNavItem({ to, label }) {
 
   return (
     <NavLink to={to}>
-      <div className={`side-nav-item ${activeClass}`}>{label}</div>
+      <div className={`side-nav-item ${activeClass}`} onClick={onClick}>
+        {label}
+      </div>
     </NavLink>
   );
 }
 
 export default function SideNavbar() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const { logout } = useContext(AuthenticationContext);
 
   return (
     <>
@@ -41,6 +46,7 @@ export default function SideNavbar() {
               <SideNavItem to='/administration/organization-units' label='Organization units' />
               <SideNavItem to='/administration/protocol-statuses' label='Protocol statuses' />
               <SideNavItem to='/administration/users' label='Users' />
+              <SideNavItem to='/login' label='Logout' onClick={logout} />
             </div>
           </MenuItem>
         </Menu>
@@ -52,6 +58,7 @@ export default function SideNavbar() {
         <SideNavItem to='/administration/organization-units' label='Organization units' />
         <SideNavItem to='/administration/protocol-statuses' label='Protocol statuses' />
         <SideNavItem to='/administration/users' label='Users' />
+        <SideNavItem to='/login' label='Logout' onClick={logout} />
       </div>
     </>
   );

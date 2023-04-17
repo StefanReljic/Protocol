@@ -13,16 +13,6 @@ export const AuthenticationContext = React.createContext({
 export default function AuthenticationProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-  console.log('AuthenticationProvider');
-  /*useEffect(() => {
-    axios
-      .post('/api/authentication/validate-token')
-      .then((response) => {
-        setIsLoggedIn(true);
-        navigate(window.location.pathname);
-      })
-      .catch(() => clearLoginContent());
-  }, []);*/
 
   const login = (credentials) => {
     axios
@@ -47,6 +37,7 @@ export default function AuthenticationProvider({ children }) {
     axios.defaults.headers.common['Authorization'] = null;
     localStorage.removeItem('token');
     setIsLoggedIn(false);
+    navigate('/login');
   }
 
   return (
