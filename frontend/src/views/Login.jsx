@@ -29,35 +29,40 @@ export default function Login(props) {
   }
 
   return (
-    <Grid container direction='column'>
+    <Grid container direction='column' alignItems='center' justifyContent='center' className='login-page'>
+      <h1 style={{ color: 'white' }}>Protocol</h1>
       <Grid item>
-        <h1>Login</h1>
-      </Grid>
-      <Grid item>
-        <Input
-          id='username'
-          error={errors.username}
-          value={credentials.username}
-          required
-          label='Username'
-          onChange={onLoginChange}
-        />
-      </Grid>
-      <Grid item>
-        <Input
-          id='password'
-          error={errors.password}
-          value={credentials.password}
-          required
-          type='password'
-          label='Password'
-          onChange={onLoginChange}
-        />
-      </Grid>
-      <Grid item>
-        <Button color='primary' variant='contained' onClick={() => login(credentials)}>
-          Login
-        </Button>
+        <Grid container direction='column' alignItems='center' justifyContent='center' className='login-form'>
+          <Grid item>
+            <h1>Login</h1>
+          </Grid>
+          <Grid item>
+            <Input
+              id='username'
+              error={errors.username}
+              value={credentials.username}
+              required
+              label='Username'
+              onChange={onLoginChange}
+            />
+          </Grid>
+          <Grid item>
+            <Input
+              id='password'
+              error={errors.password}
+              value={credentials.password}
+              required
+              type='password'
+              label='Password'
+              onChange={onLoginChange}
+            />
+          </Grid>
+          <Grid item className='login-button-wrapper'>
+            <Button color='primary' variant='contained' className='login-button' onClick={() => login(credentials)}>
+              Login
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );
